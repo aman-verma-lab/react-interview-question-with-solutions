@@ -7,8 +7,12 @@ import UnControlledComponent from './Hooks/unControlledComponent';
 import Memorization from './Hooks/Memorization';
 import UserDataProvider from './Hooks/userProvider';
 import Home from './Hooks/Home';
+import useFetch from './CustomHooks/useFetch';
 
 function App(props) {
+
+  const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+
   return (
     <div className="App">
         <UserDataProvider>
@@ -33,6 +37,12 @@ function App(props) {
           <Todo />
           <hr />
           {/* <Home /> */}
+          <p>Fetch using Custom Hook</p>
+          {data?.map((data, index) => {
+            return(
+              <p key={index + 1}>{index + 1} {data.title}</p>
+            )
+          }).slice(0, 5)}
           </UserDataProvider>
     </div>
   );
